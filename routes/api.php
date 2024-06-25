@@ -26,4 +26,4 @@ Route::get('invalid',function(){
 })->name('invalid');
 use App\Http\Controllers\ClubController;
 
-Route::apiResource('items', ClubController::class);
+Route::apiResource('clubs', ClubController::class);

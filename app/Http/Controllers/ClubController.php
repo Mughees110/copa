@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Club;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Input;
 class ClubController extends Controller
 {
     /**
@@ -49,7 +50,7 @@ class ClubController extends Controller
                 $destinationPath='files';
                 $image->move($destinationPath,$newFilename);
                 $picPath='files/' . $newFilename;
-                $club->image=encrypt($picPath);
+                $club->image=$picPath;
             }
             $files=Input::file("images");
             $paths=array();
@@ -111,7 +112,6 @@ class ClubController extends Controller
             if(!$club){
                 return response()->json(['status'=>401,'message'=>'club not exists']);
             }
-            
             DB::beginTransaction();
             if($request->get('title')){
                 $club->title=$request->get('title');
@@ -151,7 +151,7 @@ class ClubController extends Controller
             $club->save();
             DB::commit();
 
-            return response()->json(['status'=>200,'data'=>$club,'message'=>'Stored successfully']);
+            return response()->json(['status'=>200,'data'=>$club,'message'=>'Updated successfully']);
 
         } catch (\Exception $e) {
             Log::error('Club update failed: ' . $e->getMessage());
@@ -180,7 +180,7 @@ class ClubController extends Controller
               
             $club->delete();
           
-            return response()->json(['status'=>200,'data'=>$club,'message'=>'Stored successfully']);
+            return response()->json(['status'=>200,'message'=>'Deleted successfully']);
 
         } catch (\Exception $e) {
             Log::error('Club delete failed: ' . $e->getMessage());

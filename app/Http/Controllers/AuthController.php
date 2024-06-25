@@ -56,7 +56,7 @@ class AuthController extends Controller
                 $destinationPath='files';
                 $image->move($destinationPath,$newFilename);
                 $picPath='files/' . $newFilename;
-                $user->file=encrypt($picPath);
+                $user->file=$picPath;
             }
             $user->save();
             $token = $user->createToken('auth_token')->plainTextToken;

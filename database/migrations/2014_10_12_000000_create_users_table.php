@@ -30,7 +30,7 @@ return new class extends Migration
             $table->string('iban')->nullable();
             $table->string('clubId')->nullable();
             $table->string('employId')->nullable();
-            $table->string('file')->nullable();
+            $table->text('file')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

@@ -26,4 +26,7 @@ Route::get('invalid',function(){
 })->name('invalid');
 use App\Http\Controllers\ClubController;
 
-Route::apiResource('clubs', ClubController::class);
+Route::get('clubs','App\Http\Controllers\ClubController@index');
+Route::post('clubs-store','App\Http\Controllers\ClubController@store');
+Route::post('clubs-update/{id}','App\Http\Controllers\ClubController@update');
+Route::post('clubs-delete/{id}','App\Http\Controllers\ClubController@destroy');

@@ -43,7 +43,7 @@ class ItemController extends Controller
             $item->clubId=$request->get('clubId');
             $image=Input::file("image");
             if(!empty($image)){
-                $newFilename=$image->getClientOriginalName();
+                $newFilename=time().$image->getClientOriginalName();
                 $destinationPath='files';
                 $image->move($destinationPath,$newFilename);
                 $picPath='files/' . $newFilename;
@@ -109,11 +109,11 @@ class ItemController extends Controller
             }
             $image=Input::file("image");
             if(!empty($image)){
-                $newFilename=$image->getClientOriginalName();
+                $newFilename=time().$image->getClientOriginalName();
                 $destinationPath='files';
                 $image->move($destinationPath,$newFilename);
                 $picPath='files/' . $newFilename;
-                $item->image=encrypt($picPath);
+                $item->image=$picPath;
             }
             
             $item->save();

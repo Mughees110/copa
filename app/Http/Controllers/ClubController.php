@@ -46,7 +46,7 @@ class ClubController extends Controller
             $club->link=$request->get('link');
             $image=Input::file("image");
             if(!empty($image)){
-                $newFilename=$image->getClientOriginalName();
+                $newFilename=time().$image->getClientOriginalName();
                 $destinationPath='files';
                 $image->move($destinationPath,$newFilename);
                 $picPath='files/' . $newFilename;
@@ -148,11 +148,11 @@ class ClubController extends Controller
             }
             $image=Input::file("image");
             if(!empty($image)){
-                $newFilename=$image->getClientOriginalName();
+                $newFilename=time().$image->getClientOriginalName();
                 $destinationPath='files';
                 $image->move($destinationPath,$newFilename);
                 $picPath='files/' . $newFilename;
-                $club->image=encrypt($picPath);
+                $club->image=$picPath;
             }
             $files=Input::file("images");
             $paths=array();

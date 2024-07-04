@@ -12,7 +12,7 @@ class ItemController extends Controller
     public function index($id)
     {
         $items=Item::where('clubId',$id)->paginate(10);
-        return response()->json(['status'=>200,'data'=>$clubs]);
+        return response()->json(['status'=>200,'data'=>$items]);
     }
 
     /**

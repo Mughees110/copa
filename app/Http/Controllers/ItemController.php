@@ -116,7 +116,7 @@ class ItemController extends Controller
                 $item->image=encrypt($picPath);
             }
             
-            $club->save();
+            $item->save();
             DB::commit();
 
             return response()->json(['status'=>200,'data'=>$item,'message'=>'Updated successfully']);

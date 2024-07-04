@@ -4,8 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
-use App\Models\Business;
-use App\Models\Category;
+use App\Models\Club;
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\Hash;
@@ -93,9 +92,12 @@ class AuthController extends Controller
 
             $token = $user->createToken('auth_token')->plainTextToken;
             
-
-            
-            return response()->json(['status'=>200,'token'=>$token,'data'=>$user]);
+            $club=null;
+            $existC=Club::where('userId',$user->id)->exists();
+            if($existC==true){
+                $club=Club::where('userId',$user->id)->first();
+            }
+            return response()->json(['status'=>200,'token'=>$token,'data'=>$user,'club'=>$club]);
 
         } catch (\Exception $e) {
             // Log the error

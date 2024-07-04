@@ -31,6 +31,7 @@ return new class extends Migration
             $table->string('clubId')->nullable();
             $table->string('employId')->nullable();
             $table->text('file')->nullable();
+            
             $table->rememberToken();
             $table->timestamps();
         });

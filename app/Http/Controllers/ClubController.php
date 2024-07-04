@@ -66,7 +66,28 @@ class ClubController extends Controller
                 }
                 $club->images=$paths;
             }
-            
+            $club->userId=$request->get('userId');
+            $club->offDays=$request->get('offDays');
+            $club->themeDayText=$request->get('themeDayText');
+
+            $files2=Input::file("themeImages");
+            $paths2=array();
+            if(!empty($files2)){
+                foreach ($files2 as $key2 => $video2) {
+                    if(!empty($video2)){
+                        $newFilename=time().$video2->getClientOriginalName();
+                        $destinationPath='files';
+                        $video->move($destinationPath,$newFilename);
+                        $picPath2='files/' . $newFilename;
+                        $paths2[$key2]=$picPath2;
+                    }
+                }
+                $club->themeDayImages=$paths2;
+            }
+            $club->themeDayDate=$request->get('themeDayDate');
+            $club->themeDayToggle=$request->get('themeDayToggle');
+            $club->latitude=$request->get('latitude');
+            $club->longitude=$request->get('longitude');
             $club->save();
             DB::commit();
 
@@ -147,7 +168,38 @@ class ClubController extends Controller
                 }
                 $club->images=$paths;
             }
-            
+            if($request->get('offDays')){
+                $club->offDays=$request->get('offDays');
+            }
+            if($request->get('themeDayText')){
+                $club->themeDayText=$request->get('themeDayText');
+            }
+            $files2=Input::file("themeImages");
+            $paths2=array();
+            if(!empty($files2)){
+                foreach ($files2 as $key2 => $video2) {
+                    if(!empty($video2)){
+                        $newFilename=time().$video2->getClientOriginalName();
+                        $destinationPath='files';
+                        $video->move($destinationPath,$newFilename);
+                        $picPath2='files/' . $newFilename;
+                        $paths2[$key2]=$picPath2;
+                    }
+                }
+                $club->themeDayImages=$paths2;
+            }
+            if($request->get('themeDayDate')){
+                $club->themeDayDate=$request->get('themeDayDate');
+            }
+            if($request->get('themeDayToggle')){
+                $club->themeDayToggle=$request->get('themeDayToggle');
+            }
+            if($request->get('latitude')){
+                $club->latitude=$request->get('latitude');
+            }
+            if($request->get('longitude')){
+                $club->longitude=$request->get('longitude');
+            }
             $club->save();
             DB::commit();
 

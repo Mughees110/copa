@@ -30,3 +30,9 @@ Route::get('clubs','App\Http\Controllers\ClubController@index');
 Route::post('clubs-store','App\Http\Controllers\ClubController@store');
 Route::post('clubs-update/{id}','App\Http\Controllers\ClubController@update');
 Route::post('clubs-delete/{id}','App\Http\Controllers\ClubController@destroy');
+
+
+Route::get('items/{id}','App\Http\Controllers\ItemController@index');
+Route::post('items-store','App\Http\Controllers\ItemController@store');
+Route::post('items-update/{id}','App\Http\Controllers\ItemController@update');
+Route::post('items-delete/{id}','App\Http\Controllers\ItemController@destroy');

@@ -5,11 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Club extends Model
+class Item extends Model
 {
     use HasFactory;
-    protected $casts = [
-        'images' => 'array',
-        'offDays'=>'array'
-    ];
 }

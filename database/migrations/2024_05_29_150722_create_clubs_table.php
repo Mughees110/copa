@@ -19,6 +19,15 @@ return new class extends Migration
             $table->string('image')->nullable();
             $table->longText('images')->nullable();
             $table->string('toggle')->nullable();
+            $table->string('userId')->nullable();
+
+            $table->longText('offDays')->nullable();
+            $table->longText('themeDayText')->nullable();
+            $table->longText('themeDayImages')->nullable();
+            $table->string('themeDayDate')->nullable();
+            $table->string('themeDayToggle')->nullable();
+            $table->string('latitude')->nullable();
+            $table->string('longitude')->nullable();
             $table->timestamps();
         });
     }

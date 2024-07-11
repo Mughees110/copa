@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Club;
+use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Input;
@@ -248,5 +249,9 @@ class ClubController extends Controller
                 'message' => 'Club delete failed'.$e->getMessage(),
             ], 422);
         }
+    }
+    public function getUsers(Request $request){
+        $users=User::where('clubId',$request->json('clubId'))->get();
+        return response()->json(['status'=>200,'data'=>$users]);
     }
 }

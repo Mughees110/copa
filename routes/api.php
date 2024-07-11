@@ -36,4 +36,5 @@ Route::middleware('auth:sanctum')->group(function () {
 	Route::post('items-store','App\Http\Controllers\ItemController@store');
 	Route::post('items-update/{id}','App\Http\Controllers\ItemController@update');
 	Route::post('items-delete/{id}','App\Http\Controllers\ItemController@destroy');
+	Route::post('club-users','App\Http\Controllers\ClubController@getUsers');
 });

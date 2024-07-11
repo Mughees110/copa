@@ -168,11 +168,13 @@ class ClubController extends Controller
                         $paths[$key]=$picPath;
                     }
                 }
-                if (is_array($request->get('existingImages'))) {
-                    $paths = array_merge($request->get('existingImages'), $paths);
-                }
-                $club->images=$paths;
+                
             }
+            if (is_array($request->get('existingImages'))) {
+                $paths = array_merge($request->get('existingImages'), $paths);
+
+            }
+            $club->images=$paths;
             if($request->get('offDays')){
                 $club->offDays=$request->get('offDays');
             }

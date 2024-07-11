@@ -20,7 +20,7 @@ return new class extends Migration
             $table->longText('images')->nullable();
             $table->string('toggle')->nullable();
             $table->string('userId')->nullable();
-
+            $table->time('openTiming')->nullable();
             $table->longText('offDays')->nullable();
             $table->longText('themeDayText')->nullable();
             $table->longText('themeDayImages')->nullable();

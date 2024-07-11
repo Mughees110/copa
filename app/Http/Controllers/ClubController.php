@@ -88,6 +88,7 @@ class ClubController extends Controller
             $club->themeDayToggle=$request->get('themeDayToggle');
             $club->latitude=$request->get('latitude');
             $club->longitude=$request->get('longitude');
+            $club->openTiming=$request->get('openTiming');
             $club->save();
             DB::commit();
 
@@ -166,6 +167,9 @@ class ClubController extends Controller
                         $paths[$key]=$picPath;
                     }
                 }
+                if (is_array($request->get('existingImages'))) {
+                    $paths = array_merge($request->get('existingImages'), $paths);
+                }
                 $club->images=$paths;
             }
             if($request->get('offDays')){
@@ -199,6 +203,9 @@ class ClubController extends Controller
             }
             if($request->get('longitude')){
                 $club->longitude=$request->get('longitude');
+            }
+            if($request->get('openTiming')){
+                $club->openTiming=$request->get('openTiming');
             }
             $club->save();
             DB::commit();

@@ -62,7 +62,7 @@ class StoryController extends Controller
                     if(!empty($video2)){
                         $newFilename=time().$video2->getClientOriginalName();
                         $destinationPath='files';
-                        $video->move($destinationPath,$newFilename);
+                        $video2->move($destinationPath,$newFilename);
                         $picPath2='files/' . $newFilename;
                         $paths2[$key2]=$picPath2;
                     }
@@ -149,7 +149,7 @@ class StoryController extends Controller
                     if(!empty($video2)){
                         $newFilename=time().$video2->getClientOriginalName();
                         $destinationPath='files';
-                        $video->move($destinationPath,$newFilename);
+                        $video2->move($destinationPath,$newFilename);
                         $picPath2='files/' . $newFilename;
                         $paths2[$key2]=$picPath2;
                     }

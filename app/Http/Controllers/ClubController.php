@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Club;
 use App\Models\User;
+use App\Models\Like;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Input;
@@ -255,5 +256,27 @@ class ClubController extends Controller
     public function getUsers(Request $request){
         $users=User::where('clubId',$request->json('clubId'))->get();
         return response()->json(['status'=>200,'data'=>$users]);
+    }
+    public function favourite(Request $request){
+        $exists=Like::where('userId',$request->json('userId'))->where('clubId',$request->json('clubId'))->exists();
+        if($exists==true){
+            $find=Like::where('userId',$request->json('userId'))->where('clubId',$request->json('clubId'))->find();
+            $find->delete();
+            return response()->json(['status'=>200,'message'=>'Removed from favourites list']);
+        }
+        if($exists==false){
+            $like=new Like;
+            $like->userId=$request->json('userId');
+            $like->clubId=$request->json('clubId');
+            $like->save();
+            return response()->json(['status'=>200,'message'=>'Added to favourites list']);
+        }
+    }
+    public function getFavourites(Request $request){
+        $likes=Like::where('userId',$request->json('userId'))->get();
+        foreach ($likes as $key => $value) {
+            $value->setAttribute('clubId',Club::find($value->clubId));
+        }
+        return response()->json(['status'=>200,'data'=>$likes]);
     }
 }

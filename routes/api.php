@@ -20,6 +20,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::post('register','App\Http\Controllers\AuthController@register');
 //Route::post('gmail','App\Http\Controllers\AuthController@gmail');
 Route::post('login','App\Http\Controllers\AuthController@login');
+Route::post('login2','App\Http\Controllers\AuthController@login2');
 
 Route::get('invalid',function(){
 	 return response()->json(['message'=>'Access token not matched'],422);
@@ -32,6 +33,7 @@ Route::post('clubs-update/{id}','App\Http\Controllers\ClubController@update');
 Route::post('clubs-delete/{id}','App\Http\Controllers\ClubController@destroy');
 
 Route::middleware('auth:sanctum')->group(function () {
+	Route::post('update','App\Http\Controllers\AuthController@update');
 	Route::get('items/{id}','App\Http\Controllers\ItemController@index');
 	Route::post('items-store','App\Http\Controllers\ItemController@store');
 	Route::post('items-update/{id}','App\Http\Controllers\ItemController@update');

@@ -108,6 +108,29 @@ class AuthController extends Controller
             ], 422);
         }
     }
+    public function login2(Request $request){
+        if(empty($request->json('email'))){
+            return response()->json(['status'=>401,'message'=>'email is empty']);
+        }
+        $exists=User::where('email',$request->json('email'))->exists();
+        if($exists==true){
+            $user=User::where('email',$request->json('email'))->first();
+            $token = $user->createToken('auth_token')->plainTextToken;
+            $club=null;
+            $existC=Club::where('userId',$user->id)->exists();
+            if($existC==true){
+                $club=Club::where('userId',$user->id)->first();
+            }
+            return response()->json(['status'=>200,'token'=>$token,'data'=>$user,'club'=>$club]);
+        }
+        $user=new User;
+        $user->email=$request->json('email');
+        $user->name=$request->json('name');
+        $user->role="google-facebook";
+        $user->save();
+        $token = $user->createToken('auth_token')->plainTextToken;
+        return response()->json(['status'=>200,'token'=>$token,'data'=>$user]);
+    }
 
     public function logout(Request $request)
     {
@@ -115,22 +138,85 @@ class AuthController extends Controller
 
         return response()->json(['message' => 'Successfully logged out']);
     }
-    public function gmail(Request $request){
-        if(empty($request->json('email'))){
-            return response()->json(['status'=>401,'message'=>'email is required']);
-        }
-        $exists=User::where('email',$request->json('email'))->exists();
-        if($exists==false){
-            $user=new User;
-            $user->name=$request->json('name');
-            $user->email=$request->json('email');
-            $user->role='gmail';
+    public function update(Request $request)
+    {
+        try {
+            /*if(empty($request->json('name'))||empty($request->json('email'))||empty($request->json('password'))||empty($request->json('phone'))||empty($request->json('role'))){
+                return response()->json(['status'=>401,'message'=>',name , email, role, phone and password are required']);
+            }*/
             
+            $user=User::find($request->get('userId'));
+            if(!$user){
+                return response()->json(['status'=>401,'message'=>'user not found']);
+            }
+            DB::beginTransaction();
+            if(!empty($request->get('name'))){
+                $user->name=$request->get('name');
+            }
+            if(!empty($request->get('surname'))){
+                $user->surname=$request->get('surname');
+            }
+            if(!empty($request->get('username'))){
+                $user->username=$request->get('username');
+            }
+            if(!empty($request->get('country'))){
+                $user->country=$request->get('country');
+            }
+            if(!empty($request->get('dateOfBirth'))){
+                $user->dateOfBirth=$request->get('dateOfBirth');
+            }
+            if(!empty($request->get('phone'))){
+                $user->phone=$request->get('phone');
+            }
+            if(!empty($request->get('companyName'))){
+                $user->companyName=$request->get('companyName');
+            }
+            if(!empty($request->get('address'))){
+                $user->address=$request->get('address');
+            }
+            if(!empty($request->get('city'))){
+                $user->city=$request->get('city');
+            }
+            if(!empty($request->get('postalCode'))){
+                $user->postalCode=$request->get('postalCode');
+            }
+            if(!empty($request->get('fullName'))){
+                $user->fullName=$request->get('fullName');
+            }
+            if(!empty($request->get('iban'))){
+                $user->iban=$request->get('iban');
+            }
+            if(!empty($request->get('clubId'))){
+                $user->clubId=$request->get('clubId');
+            }
+            if(!empty($request->get('employId'))){
+                $user->employId=$request->get('employId');
+            }
+            $image=Input::file("file");
+            if(!empty($image)){
+                $newFilename=$image->getClientOriginalName();
+                $destinationPath='files';
+                $image->move($destinationPath,$newFilename);
+                $picPath='files/' . $newFilename;
+                $user->file=$picPath;
+            }
             $user->save();
-            return response()->json(['status'=>200,'data'=>$user,'exists'=>'no']);
+            $token = $user->createToken('auth_token')->plainTextToken;
+            
+            DB::commit();
+
+            return response()->json(['status'=>200,'token'=>$token,'data'=>$user,'message'=>'Updated successfully']);
+
+        } catch (\Exception $e) {
+            Log::error('User registration failed: ' . $e->getMessage());
+
+            DB::rollBack();
+            
+            return response()->json([
+                'message' => 'User registration failed'.$e->getMessage(),
+            ], 422);
         }
-        $user=User::where('email',$request->json('email'))->first();
-        return response()->json(['status'=>200,'data'=>$user,'exists'=>'yes']);
     }
+    
 
 }

@@ -131,6 +131,10 @@ class AuthController extends Controller
         $token = $user->createToken('auth_token')->plainTextToken;
         return response()->json(['status'=>200,'token'=>$token,'data'=>$user]);
     }
+    public function userExists(Request $request){
+        $exists=User::where('email',$request->json('email'))->exists();
+        return response()->json(['status'=>200,'data'=>$exists]);
+    }
 
     public function logout(Request $request)
     {

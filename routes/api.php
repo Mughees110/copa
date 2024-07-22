@@ -21,6 +21,7 @@ Route::post('register','App\Http\Controllers\AuthController@register');
 //Route::post('gmail','App\Http\Controllers\AuthController@gmail');
 Route::post('login','App\Http\Controllers\AuthController@login');
 Route::post('login2','App\Http\Controllers\AuthController@login2');
+Route::post('user-exists','App\Http\Controllers\AuthController@userExists');
 
 Route::get('invalid',function(){
 	 return response()->json(['message'=>'Access token not matched'],422);

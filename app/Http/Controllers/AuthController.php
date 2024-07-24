@@ -57,14 +57,7 @@ class AuthController extends Controller
                 $picPath='files/' . $newFilename;
                 $user->file=$picPath;
             }
-            $image2=Input::file("photo");
-            if(!empty($image2)){
-                $newFilename=$image2->getClientOriginalName();
-                $destinationPath='files';
-                $image2->move($destinationPath,$newFilename);
-                $picPath2='files/' . $newFilename;
-                $user->photo=$picPath2;
-            }
+            $user->photo=$request->get('photo');
             $user->save();
             $token = $user->createToken('auth_token')->plainTextToken;
             

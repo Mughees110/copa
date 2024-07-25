@@ -260,7 +260,7 @@ class ClubController extends Controller
     public function favourite(Request $request){
         $exists=Like::where('userId',$request->json('userId'))->where('clubId',$request->json('clubId'))->exists();
         if($exists==true){
-            $find=Like::where('userId',$request->json('userId'))->where('clubId',$request->json('clubId'))->find();
+            $find=Like::where('userId',$request->json('userId'))->where('clubId',$request->json('clubId'))->first();
             $find->delete();
             return response()->json(['status'=>200,'message'=>'Removed from favourites list']);
         }

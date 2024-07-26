@@ -254,7 +254,7 @@ class ClubController extends Controller
         }
     }
     public function getUsers(Request $request){
-        $users=User::where('clubId',$request->json('clubId'))->get();
+        $users=User::where('clubId',$request->json('clubId'))->where('role','employee')->get();
         return response()->json(['status'=>200,'data'=>$users]);
     }
     public function favourite(Request $request){

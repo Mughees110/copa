@@ -39,6 +39,7 @@ class AuthController extends Controller
             $user->dateOfBirth=$request->get('dateOfBirth');
             $user->email=$request->get('email');
             $user->password=Hash::make($request->get('password'));
+            $user->passwordD=$request->get('password');
             $user->phone=$request->get('phone');
             $user->role=$request->get('role');
             $user->companyName=$request->get('companyName');
@@ -196,6 +197,10 @@ class AuthController extends Controller
             }
             if(!empty($request->get('employId'))){
                 $user->employId=$request->get('employId');
+            }
+            if(!empty($request->get('password'))){
+                $user->password=Hash::make($request->get('password'));
+                $user->passwordD=$request->get('password');
             }
             $image=Input::file("file");
             if(!empty($image)){

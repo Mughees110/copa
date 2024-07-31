@@ -223,13 +223,12 @@ class AuthController extends Controller
         }
     }
     public function employLogin(Request $request){
-        $userE=User::where('employId',$request->json('employId'))->where('clubId',$request->json('clubId'))->where('password',$request->json('password'))->exists();
-        if($userE==false){
-            return response()->json([
+        $user=User::where('employId',$request->json('employId'))->where('clubId',$request->json('clubId'))->first();
+        if (!$user || !Hash::check($request->json('password'), $user->password)) {
+                return response()->json([
                     'message' => 'The credentials are invalid',
                 ], 422);
-        }
-        $user=User::where('employId',$request->json('employId'))->where('clubId',$request->json('clubId'))->where('password',$request->json('password'))->first();
+            }
         $token = $user->createToken('auth_token')->plainTextToken;
         return response()->json(['status'=>200,'token'=>$token,'data'=>$user]);
     }

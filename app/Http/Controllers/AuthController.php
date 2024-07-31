@@ -223,6 +223,9 @@ class AuthController extends Controller
         }
     }
     public function employLogin(Request $request){
+        if(empty($request->json('employId'))||empty($request->json('clubId'))){
+            return response()->json(['status'=>401,'message'=>'employId or clubId is missing']);
+        }
         $user=User::where('employId',$request->json('employId'))->where('clubId',$request->json('clubId'))->first();
         if (!$user || !Hash::check($request->json('password'), $user->password)) {
                 return response()->json([

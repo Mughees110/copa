@@ -237,7 +237,11 @@ class AuthController extends Controller
                     'message' => 'The credentials are invalid',
                 ], 422);
             }
+
         $token = $user->createToken('auth_token')->plainTextToken;
+        if($user->clubId){
+            $user->setAttribute('club',Club::find($user->clubId));
+        }
         return response()->json(['status'=>200,'token'=>$token,'data'=>$user]);
     }
     

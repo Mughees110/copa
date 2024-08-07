@@ -49,7 +49,10 @@ class AuthController extends Controller
             $user->fullName=$request->get('fullName');
             $user->iban=$request->get('iban');
             $user->clubId=$request->get('clubId');
-            $user->employId=$request->get('employId');
+            if($request->get('employee')){
+                $user->employId=rand(1111,9999);
+            }
+            
             $image=Input::file("file");
             if(!empty($image)){
                 $newFilename=$image->getClientOriginalName();

@@ -10,9 +10,9 @@ use Illuminate\Support\Facades\Log;
 use Input;
 class StoryController extends Controller
 {
-   	public function index($id)
+   	public function index(Request $request)
     {
-        $stories=Story::where('clubId',$id)->paginate(10);
+        $stories=Story::where('clubId',$request->json('clubId'))->paginate(10);
         foreach ($stories as $key => $value) {
             $value->setAttribute('user',User::find($value->userId));
         }

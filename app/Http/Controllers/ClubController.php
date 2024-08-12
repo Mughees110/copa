@@ -68,6 +68,20 @@ class ClubController extends Controller
                 }
                 $club->images=$paths;
             }
+            $files3=Input::file("videos");
+            $paths3=array();
+            if(!empty($files3)){
+                foreach ($files3 as $key3 => $video3) {
+                    if(!empty($video3)){
+                        $newFilename3=time().$video3->getClientOriginalName();
+                        $destinationPath3='files';
+                        $video3->move($destinationPath3,$newFilename3);
+                        $picPath3='files/' . $newFilename3;
+                        $paths3[$key3]=$picPath3;
+                    }
+                }
+                $club->videos=$paths3;
+            }
             $club->userId=$request->get('userId');
             $club->offDays=$request->get('offDays');
             $club->themeDayText=$request->get('themeDayText');
@@ -179,6 +193,25 @@ class ClubController extends Controller
             if($request->get('offDays')){
                 $club->offDays=$request->get('offDays');
             }
+            $files3=Input::file("videos");
+            $paths3=array();
+            if(!empty($files3)){
+                foreach ($files3 as $key3 => $video3) {
+                    if(!empty($video3)){
+                        $newFilename3=time().$video3->getClientOriginalName();
+                        $destinationPath3='files';
+                        $video3->move($destinationPath3,$newFilename3);
+                        $picPath3='files/' . $newFilename3;
+                        $paths3[$key3]=$picPath3;
+                    }
+                }
+                
+            }
+            if (is_array($request->get('existingVideos'))) {
+                $paths3 = array_merge($request->get('existingVideos'), $paths3);
+
+            }
+            $club->videos=$paths3;
             if($request->get('themeDayText')){
                 $club->themeDayText=$request->get('themeDayText');
             }

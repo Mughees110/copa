@@ -18,6 +18,7 @@ return new class extends Migration
             $table->longText('link')->nullable();
             $table->string('image')->nullable();
             $table->longText('images')->nullable();
+            $table->longText('videos')->nullable();
             $table->string('toggle')->nullable();
             $table->string('userId')->nullable();
             $table->time('openTiming')->nullable();

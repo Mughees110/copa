@@ -49,7 +49,7 @@ class AuthController extends Controller
             $user->fullName=$request->get('fullName');
             $user->iban=$request->get('iban');
             $user->clubId=$request->get('clubId');
-            if($request->get('employee')){
+            if($request->get('role')=="employee"){
                 $user->employId=rand(1111,9999);
             }
             

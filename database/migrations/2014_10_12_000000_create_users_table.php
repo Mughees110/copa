@@ -33,6 +33,7 @@ return new class extends Migration
             $table->string('employId')->nullable();
             $table->text('file')->nullable();
             $table->text('photo')->nullable();
+            $table->string('countryIsoCode')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

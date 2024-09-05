@@ -49,6 +49,7 @@ class AuthController extends Controller
             $user->fullName=$request->get('fullName');
             $user->iban=$request->get('iban');
             $user->clubId=$request->get('clubId');
+            $user->countryIsoCode=$request->get('countryIsoCode');
             if($request->get('role')=="employee"){
                 $user->employId=rand(1111,9999);
             }
@@ -201,6 +202,10 @@ class AuthController extends Controller
             if(!empty($request->get('employId'))){
                 $user->employId=$request->get('employId');
             }
+            if(!empty($request->get('countryIsoCode'))){
+                $user->countryIsoCode=$request->get('countryIsoCode');
+            }
+            
             if(!empty($request->get('password'))){
                 $user->password=Hash::make($request->get('password'));
                 $user->passwordD=$request->get('password');

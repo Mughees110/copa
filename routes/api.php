@@ -67,4 +67,9 @@ Route::middleware('auth:sanctum')->group(function () {
 	Route::post('banners-store','App\Http\Controllers\BannerController@store');
 	Route::post('banners-update/{id}','App\Http\Controllers\BannerController@update');
 	Route::post('banners-delete/{id}','App\Http\Controllers\BannerController@destroy');
+
+	Route::post('seasons','App\Http\Controllers\SeasonController@index');
+	Route::post('seasons-store','App\Http\Controllers\SeasonController@store');
+	Route::post('seasons-update/{id}','App\Http\Controllers\SeasonController@update');
+	Route::post('seasons-delete/{id}','App\Http\Controllers\SeasonController@destroy');
 });

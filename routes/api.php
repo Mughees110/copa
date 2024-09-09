@@ -49,4 +49,22 @@ Route::middleware('auth:sanctum')->group(function () {
 	Route::post('club-users','App\Http\Controllers\ClubController@getUsers');
 	Route::post('favourite','App\Http\Controllers\ClubController@favourite');
 	Route::post('get-favourites','App\Http\Controllers\ClubController@getFavourites');
+
+	Route::post('levels','App\Http\Controllers\LevelController@index');
+	Route::post('levels-store','App\Http\Controllers\LevelController@store');
+	Route::post('levels-update/{id}','App\Http\Controllers\LevelController@update');
+	Route::post('levels-delete/{id}','App\Http\Controllers\LevelController@destroy');
+
+	Route::post('regulators','App\Http\Controllers\RegulatorController@index');
+	Route::post('regulators-store','App\Http\Controllers\RegulatorController@store');
+	Route::post('regulators-update/{id}','App\Http\Controllers\RegulatorController@update');
+	Route::post('regulators-delete/{id}','App\Http\Controllers\RegulatorController@destroy');
+
+	Route::post('increment-coins','App\Http\Controllers\AuthController@incrementCoins');
+	Route::post('decrement-coins','App\Http\Controllers\AuthController@decrementCoins');
+
+	Route::post('banners','App\Http\Controllers\BannerController@index');
+	Route::post('banners-store','App\Http\Controllers\BannerController@store');
+	Route::post('banners-update/{id}','App\Http\Controllers\BannerController@update');
+	Route::post('banners-delete/{id}','App\Http\Controllers\BannerController@destroy');
 });

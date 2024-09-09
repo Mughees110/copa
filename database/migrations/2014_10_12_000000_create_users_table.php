@@ -34,6 +34,10 @@ return new class extends Migration
             $table->text('file')->nullable();
             $table->text('photo')->nullable();
             $table->string('countryIsoCode')->nullable();
+
+            $table->float('latitude')->nullable();
+            $table->float('longitude')->nullable();
+            $table->string('coins')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

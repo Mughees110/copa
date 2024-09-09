@@ -205,6 +205,13 @@ class AuthController extends Controller
             if(!empty($request->get('countryIsoCode'))){
                 $user->countryIsoCode=$request->get('countryIsoCode');
             }
+
+            if(!empty($request->get('latitude'))){
+                $user->latitude=$request->get('latitude');
+            }
+            if(!empty($request->get('longitude'))){
+                $user->longitude=$request->get('longitude');
+            }
             
             if(!empty($request->get('password'))){
                 $user->password=Hash::make($request->get('password'));
@@ -251,6 +258,30 @@ class AuthController extends Controller
             $user->setAttribute('club',Club::find($user->clubId));
         }
         return response()->json(['status'=>200,'token'=>$token,'data'=>$user]);
+    }
+    public function incrementCoins(Request $request){
+        if(empty($request->json('userId'))||empty($request->json('coins'))){
+            return response()->json(['status'=>401,'message'=>'userId or coins is missing']);
+        }
+        $user=User::find($request->json('userId'));
+        if(!$user){
+            return response()->json(['status'=>401,'message'=>'user not exists']);
+        }
+        $user->coins=$user->coins+$request->json('coins');
+        $user->save();
+        return response()->json(['status'=>200,'message'=>'incremented successfully','data'=>$user]);
+    }
+    public function decrementCoins(Request $request){
+        if(empty($request->json('userId'))||empty($request->json('coins'))){
+            return response()->json(['status'=>401,'message'=>'userId or coins is missing']);
+        }
+        $user=User::find($request->json('userId'));
+        if(!$user){
+            return response()->json(['status'=>401,'message'=>'user not exists']);
+        }
+        $user->coins=$user->coins-$request->json('coins');
+        $user->save();
+        return response()->json(['status'=>200,'message'=>'decremented successfully','data'=>$user]);
     }
     
 

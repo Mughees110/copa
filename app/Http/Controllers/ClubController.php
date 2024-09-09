@@ -16,7 +16,30 @@ class ClubController extends Controller
      */
     public function index()
     {
-        $clubs=Club::paginate(10);
+        $userId = $request->json('userId');
+        $dist = (float) $request->json('distance', 50);
+
+        if (empty($userId)) {
+            return response()->json(['status' => false, 'message' => 'userId is required']);
+        }
+
+        $user = User::find($userId);
+
+        if (!$user) {
+            return response()->json(['status' => false, 'message' => 'User does not exist']);
+        }
+
+        // Retrieve points and apply distance filter
+        $latitudeTo = (float) $user->latitude;
+        $longitudeTo = (float) $user->longitude;
+        $clubs=Club::selectRaw('*, (
+            3958.756 * 1.60934 * 
+            2 * ASIN(SQRT(
+                POW(SIN((radians(latitude) - radians(?)) / 2), 2) +
+                COS(radians(?)) * COS(radians(latitude)) * POW(SIN((radians(longitude) - radians(?)) / 2), 2)
+            ))
+        ) AS distance', [$latitudeTo, $latitudeTo, $longitudeTo])
+        ->having('distance', '<=', $dist)->get();
         return response()->json(['status'=>200,'data'=>$clubs]);
     }
 

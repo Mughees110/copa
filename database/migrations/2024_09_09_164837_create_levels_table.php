@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('spendings')->nullable();
             $table->string('paas')->nullable();
             $table->string('clubId')->nullable();
+            $table->string('seasonId')->nullable();
             $table->timestamps();
         });
     }

@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->date('date')->nullable();
             $table->string('numberOfDays')->nullable();
-            $table->string('clubId')->nullable();
+            
             $table->timestamps();
         });
     }

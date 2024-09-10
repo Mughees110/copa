@@ -29,7 +29,7 @@ class SeasonController extends Controller
             $season=new Season;
             $season->date=$request->json('date');
             $season->numberOfDays=$request->json('numberOfDays');
-            $season->clubId=$request->json('clubId');
+            
             $season->save();
             DB::commit();
 
@@ -62,9 +62,6 @@ class SeasonController extends Controller
             }
             if($request->json('numberOfDays')){
                 $season->numberOfDays=$request->json('numberOfDays');
-            }
-            if($request->json('clubId')){
-                $season->clubId=$request->json('clubId');
             }
             
             $season->save();

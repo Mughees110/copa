@@ -32,6 +32,7 @@ class LevelController extends Controller
             $level->spendings=$request->json('spendings');
             $level->paas=$request->json('paas');
             $level->clubId=$request->json('clubId');
+            $level->seasonId=$request->json('seasonId');
             $level->save();
             DB::commit();
 
@@ -73,6 +74,9 @@ class LevelController extends Controller
             }
             if($request->json('clubId')){
                 $level->clubId=$request->json('clubId');
+            }
+            if($request->json('seasonId')){
+                $level->seasonId=$request->json('seasonId');
             }
             
             $level->save();

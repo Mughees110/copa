@@ -283,6 +283,10 @@ class AuthController extends Controller
         $user->save();
         return response()->json(['status'=>200,'message'=>'decremented successfully','data'=>$user]);
     }
+    public function getUserCoins(Request $request){
+        $user=User::find($request->json('userId'));
+        return response()->json(['status'=>200,'data'=>$user->coins]);
+    }
     
 
 }

@@ -72,4 +72,6 @@ Route::middleware('auth:sanctum')->group(function () {
 	Route::post('seasons-store','App\Http\Controllers\SeasonController@store');
 	Route::post('seasons-update/{id}','App\Http\Controllers\SeasonController@update');
 	Route::post('seasons-delete/{id}','App\Http\Controllers\SeasonController@destroy');
+
+	Route::post('get-user-coins','App\Http\Controllers\AuthController@getUserCoins');
 });

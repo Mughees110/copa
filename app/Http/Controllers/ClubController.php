@@ -14,7 +14,7 @@ class ClubController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         $userId = $request->json('userId');
         $dist = (float) $request->json('distance', 50);

@@ -10,7 +10,7 @@ class SeasonController extends Controller
 {
     public function index(Request $request)
     {
-        $seasons=Season::where('clubId',$request->json('clubId'))->paginate(10);
+        $seasons=Season::paginate(10);
         return response()->json(['status'=>200,'data'=>$seasons]);
     }
 

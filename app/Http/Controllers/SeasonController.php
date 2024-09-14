@@ -7,12 +7,15 @@ use App\Models\Season;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Carbon\Carbon;
+
 class SeasonController extends Controller
 {
     public function index(Request $request)
     {
-        $season=Season::where('date', '<=', $currentDate)->whereRaw("DATE_ADD(date, INTERVAL numberOfDays DAY) >= ?", [$currentDate])->first();
-    ;
+        $currentDate = Carbon::today();
+        $season=Season::where('date', '<=', $currentDate)->
+        whereRaw("DATE_ADD(date, INTERVAL numberOfDays DAY) >= ?", [$currentDate])->first();
+    
         return response()->json(['status'=>200,'data'=>$season]);
     }
 

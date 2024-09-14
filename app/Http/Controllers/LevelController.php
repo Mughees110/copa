@@ -10,7 +10,7 @@ class LevelController extends Controller
 {
     public function index(Request $request)
     {
-        $levels=Level::where('clubId',$request->json('clubId'))->paginate(10);
+        $levels=Level::where('clubId',$request->json('clubId'))->where('seasonId',$request->json('seasonId'))->get();
         return response()->json(['status'=>200,'data'=>$levels]);
     }
 

@@ -103,15 +103,7 @@ class AuthController extends Controller
             if($existC==true){
                 $club=Club::where('userId',$user->id)->first();
             }
-            return response()->json([
-    'status' => 200,
-    'token' => $token,
-    'data' => $user,
-    'club' => $club
-])->header('Access-Control-Allow-Origin', '*')
-  ->header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS')
-  ->header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-
+            return response()->json(['status'=>200,'token'=>$token,'data'=>$user,'club'=>$club]);
 
         } catch (\Exception $e) {
             // Log the error

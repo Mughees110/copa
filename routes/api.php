@@ -74,4 +74,6 @@ Route::middleware('auth:sanctum')->group(function () {
 	Route::post('seasons-delete/{id}','App\Http\Controllers\SeasonController@destroy');
 
 	Route::post('get-user-coins','App\Http\Controllers\AuthController@getUserCoins');
+
+	Route::post('club-with-levels','App\Http\Controllers\ClubController@clubWithLevels');
 });

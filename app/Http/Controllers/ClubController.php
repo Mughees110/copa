@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Club;
 use App\Models\User;
 use App\Models\Like;
+use App\Models\Level;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Input;
@@ -334,5 +335,18 @@ class ClubController extends Controller
             $value->setAttribute('clubId',Club::find($value->clubId));
         }
         return response()->json(['status'=>200,'data'=>$likes]);
+    }
+    public function clubWithLevels(Request $request){
+        $clubIds=array();
+        $clus=Level::where('seasonId',$request->json('seasonId'))->select('clubId')->groupBy('clubId')->get();
+        foreach ($clus as $key => $value) {
+            array_push($clubIds,$value->clubId);
+        }
+        $clubs=Club::whereIn('id',$clubIds)->get();
+        foreach ($clubs as $key => $valuec) {
+            $levels=Level::where('clubId',$valuec->id)->where('seasonId',$request->json('seasonId'))->get();
+            $valuec->setAttribute('levels',$levels);
+        }
+        return response()->json(['status'=>200,'data'=>$clubs]);
     }
 }

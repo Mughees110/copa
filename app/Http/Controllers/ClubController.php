@@ -43,6 +43,11 @@ class ClubController extends Controller
         ->having('distance', '<=', $dist)->get();
         return response()->json(['status'=>200,'data'=>$clubs]);
     }
+    public function index2(Request $request)
+    {
+        $clubs=Club::all();
+        return response()->json(['status'=>200,'data'=>$clubs]);
+    }
 
     /**
      * Show the form for creating a new resource.

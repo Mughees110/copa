@@ -45,7 +45,7 @@ class ClubController extends Controller
     }
     public function index2(Request $request)
     {
-        $clubs=Club::all();
+        $clubs=Club::paginate(10);
         return response()->json(['status'=>200,'data'=>$clubs]);
     }
 

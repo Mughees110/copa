@@ -19,7 +19,7 @@ return [
 
     'allowed_methods' => ['*'], // You can specify specific methods like ['GET', 'POST']
 
-    'allowed_origins' => ['http://localhost:3000'], // Allow requests from your React app
+    'allowed_origins' => ['http://localhost:3000','*'], // Allow requests from your React app
 
     'allowed_origins_patterns' => [],
 
@@ -29,6 +29,6 @@ return [
 
     'max_age' => 0,
 
-    'supports_credentials' => true,
+    'supports_credentials' => false,
 
 ];

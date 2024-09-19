@@ -17,6 +17,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 Route::get('test','App\Http\Controllers\TestController@test');
-Route::get('/csrf-token', function () {
+Route::get('csrf-token', function () {
     return response()->json(['token' => csrf_token()]);
 });

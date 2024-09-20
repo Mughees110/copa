@@ -31,6 +31,7 @@ use App\Http\Controllers\ClubController;
 
 Route::post('clubs','App\Http\Controllers\ClubController@index');
 Route::post('clubs-all','App\Http\Controllers\ClubController@index2');
+Route::post('clubs-all-without-pagination','App\Http\Controllers\ClubController@index3');
 Route::post('clubs-store','App\Http\Controllers\ClubController@store');
 Route::post('clubs-update/{id}','App\Http\Controllers\ClubController@update');
 Route::post('clubs-delete/{id}','App\Http\Controllers\ClubController@destroy');

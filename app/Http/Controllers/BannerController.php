@@ -11,7 +11,7 @@ class BannerController extends Controller
 {
     public function index(Request $request)
     {
-        $banners=Banner::where('clubId',$request->json('clubId'))->paginate(10);
+        $banners=Banner::where('clubId',$request->json('clubId'))->get();
         return response()->json(['status'=>200,'data'=>$banners]);
     }
 

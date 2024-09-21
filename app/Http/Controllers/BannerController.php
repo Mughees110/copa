@@ -29,7 +29,7 @@ class BannerController extends Controller
             
             $banner=new Banner;
             $banner->text=$request->get('text');
-            $video=Input::find('video');
+            $video=Input::file('video');
             if(!empty($video)){
                 $newFilename=time().$video->getClientOriginalName();
                 $destinationPath='files';
@@ -37,7 +37,7 @@ class BannerController extends Controller
                 $picPath='files/' . $newFilename;
                 $banner->video=$picPath;
             }
-            $image=Input::find('image');
+            $image=Input::file('image');
             if(!empty($image)){
                 $newFilename=time().$image->getClientOriginalName();
                 $destinationPath='files';
@@ -80,7 +80,7 @@ class BannerController extends Controller
             if($request->get('clubId')){
                 $banner->clubId=$request->get('clubId');
             }
-            $video=Input::find('video');
+            $video=Input::file('video');
             if(!empty($video)){
                 $newFilename=time().$video->getClientOriginalName();
                 $destinationPath='files';
@@ -88,7 +88,7 @@ class BannerController extends Controller
                 $picPath='files/' . $newFilename;
                 $banner->video=$picPath;
             }
-            $image=Input::find('image');
+            $image=Input::file('image');
             if(!empty($image)){
                 $newFilename=time().$image->getClientOriginalName();
                 $destinationPath='files';

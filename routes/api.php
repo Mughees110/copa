@@ -78,4 +78,11 @@ Route::middleware('auth:sanctum')->group(function () {
 	Route::post('get-user-coins','App\Http\Controllers\AuthController@getUserCoins');
 
 	Route::post('club-with-levels','App\Http\Controllers\ClubController@clubWithLevels');
+
+	Route::post('get-all-users','App\Http\Controllers\AuthController@getAllUsers');
+	Route::post('store-exp-points','App\Http\Controllers\PointController@store');
+	Route::post('overall-sum','App\Http\Controllers\PointController@overallSum');
+	Route::post('points-against-cp','App\Http\Controllers\PointController@pointsAgainstCp');
+	Route::post('get-top-users','App\Http\Controllers\PointController@getTopUsers');
+	Route::post('clubs-search','App\Http\Controllers\ClubController@clubsSearch');
 });

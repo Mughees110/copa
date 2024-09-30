@@ -43,6 +43,7 @@ class StoryController extends Controller
             $story->clubId=$request->get('clubId');
             $story->userId=$request->get('userId');
             $story->status=$request->get('status');
+            $story->type=$request->get('type');
             
             $files=Input::file("images");
             $paths=array();
@@ -130,6 +131,9 @@ class StoryController extends Controller
             }
             if($request->get('status')){
                 $story->status=$request->get('status');
+            }
+            if($request->get('type')){
+                $story->type=$request->get('type');
             }
             $files=Input::file("images");
             $paths=array();

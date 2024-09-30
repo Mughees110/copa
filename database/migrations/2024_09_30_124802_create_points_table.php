@@ -11,15 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('stories', function (Blueprint $table) {
+        Schema::create('points', function (Blueprint $table) {
             $table->id();
-            $table->longText('images')->nullable();
-            $table->longText('videos')->nullable();
-            $table->time('startingTime')->nullable();
-            $table->string('clubId')->nullable();
             $table->string('userId')->nullable();
-            $table->string('status')->nullable();
-            $table->string('type')->nullable();
+            $table->string('paas')->nullable();
+            $table->string('points')->nullable();
+            $table->string('clubId')->nullable();
+            $table->longText('itemIds')->nullable();
             $table->timestamps();
         });
     }
@@ -29,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('stories');
+        Schema::dropIfExists('points');
     }
 };

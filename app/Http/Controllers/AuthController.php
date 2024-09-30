@@ -290,6 +290,10 @@ class AuthController extends Controller
         $user=User::find($request->json('userId'));
         return response()->json(['status'=>200,'data'=>$user->coins]);
     }
+    public function getUserSpins(Request $request){
+        $user=User::find($request->json('userId'));
+        return response()->json(['status'=>200,'data'=>$user->spins]);
+    }
     public function getAllUsers(Request $request){
         $users=User::all();
         return response()->json(['status'=>200,'data'=>$users]);

@@ -212,6 +212,9 @@ class AuthController extends Controller
             if(!empty($request->get('longitude'))){
                 $user->longitude=$request->get('longitude');
             }
+            if(!empty($request->get('spins'))){
+                $user->spins=$request->get('spins');
+            }
             
             if(!empty($request->get('password'))){
                 $user->password=Hash::make($request->get('password'));

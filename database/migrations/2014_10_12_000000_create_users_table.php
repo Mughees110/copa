@@ -38,6 +38,7 @@ return new class extends Migration
             $table->float('latitude')->nullable();
             $table->float('longitude')->nullable();
             $table->string('coins')->nullable();
+            $table->string('spins')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

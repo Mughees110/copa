@@ -360,7 +360,7 @@ class ClubController extends Controller
         return response()->json(['status'=>200,'data'=>$clubs]);
     }
     public function clubsSearch(Request $request){
-        $clubs=Club::where('title','like','%'.$request->json('title').'%')->orWhere('description','like','%'.$request->json('description').'%')->get();
+        $clubs=Club::where('title','like','%'.$request->json('search').'%')->orWhere('description','like','%'.$request->json('search').'%')->get();
         return response()->json(['status'=>200,'data'=>$clubs]);
     }
 }

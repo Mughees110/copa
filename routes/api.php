@@ -44,6 +44,7 @@ Route::middleware('auth:sanctum')->group(function () {
 	Route::post('items-delete/{id}','App\Http\Controllers\ItemController@destroy');
 
 	Route::post('stories','App\Http\Controllers\StoryController@index');
+	Route::post('stories-panel','App\Http\Controllers\StoryController@index2');
 	Route::post('stories-store','App\Http\Controllers\StoryController@store');
 	Route::post('stories-update/{id}','App\Http\Controllers\StoryController@update');
 	Route::post('stories-delete/{id}','App\Http\Controllers\StoryController@destroy');

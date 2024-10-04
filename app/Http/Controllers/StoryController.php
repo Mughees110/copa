@@ -18,6 +18,14 @@ class StoryController extends Controller
         }
         return response()->json(['status'=>200,'data'=>$stories]);
     }
+    public function index2(Request $request)
+    {
+        $stories=Story::where('clubId',$request->json('clubId'))->get();
+        foreach ($stories as $key => $value) {
+            $value->setAttribute('user',User::find($value->userId));
+        }
+        return response()->json(['status'=>200,'data'=>$stories]);
+    }
 
     /**
      * Show the form for creating a new resource.

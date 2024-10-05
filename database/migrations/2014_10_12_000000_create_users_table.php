@@ -39,6 +39,7 @@ return new class extends Migration
             $table->float('longitude')->nullable();
             $table->string('coins')->nullable();
             $table->string('spins')->nullable();
+            $table->longText('stripeId')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

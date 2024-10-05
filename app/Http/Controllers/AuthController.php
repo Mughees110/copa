@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Models\Club;
+use App\Models\Payment;
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\Hash;
@@ -12,6 +13,10 @@ use Illuminate\Validation\ValidationException;
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+
+use Stripe\Stripe;
+use Stripe\Customer;
+use Stripe\Charge;
 
 use Input;
 use Mail;
@@ -297,6 +302,76 @@ class AuthController extends Controller
     public function getAllUsers(Request $request){
         $users=User::all();
         return response()->json(['status'=>200,'data'=>$users]);
+    }
+
+    public function storeCardInfo(Request $request)
+    {
+        Stripe::setApiKey(config('services.stripe.secret'));
+        if(!$request->token){
+            $message='Unable to create stripe token';
+            return response()->json(['message'=>$message]);
+        }
+        if(!$request->userId){
+            $message='Unable to get userId';
+            return response()->json(['message'=>$message]);
+        }
+        
+        /*$request->validate([
+            'token' => 'required|string',
+            'amount' => 'required|integer',
+            'userId'=>'required' // Amount in cents
+        ]);*/
+        $user=User::find($request->userId);
+        if(!$user){
+            $message="User not found";
+            return response()->json(['message'=>$message]);
+        }
+        $user->stripeToken=$request->token;
+
+        try {
+            // Create a customer
+            $customer = Customer::create([
+                'description' => 'Customer for example',
+                'source' => $request->token,
+            ]);
+            if(!$customer||!$customer->id){
+                return response()->json(['message'=>'Unable to create customer']);
+            }
+            $user->stripeId=$customer->id;
+            $user->save();
+
+            return response()->json(['message'=>'Card Information stored successfully']);
+        } catch (\Exception $e) {
+            $message=$e->getMessage();
+            return response()->json(['message'=>$message]);
+        }
+    }
+
+    public function chargeCustomer(Request $request)
+    {
+        Stripe::setApiKey(config('services.stripe.secret'));
+
+        $amount=(int)$request->json('amount');
+        $user=User::find($request->json('sentBy'));
+        try {
+            $charge = Charge::create([
+                'amount' => $amount,
+                'currency' => 'usd',
+                'description' => 'Example charge',
+                'customer' => $user->stripeId,
+            ]);
+
+            $payment=new Payment;
+            $payment->chargeId=$charge->id;
+            $payment->amount=$request->json('amount');
+            $payment->sentBy=$request->json('sentBy');
+            $payment->clubId=$request->json('clubId');
+            $payment->save();
+
+            return response()->json(['status' => 'success', 'charge' => $charge]);
+        } catch (\Exception $e) {
+            return response()->json(['status' => 'error', 'message' => $e->getMessage()]);
+        }
     }
     
 

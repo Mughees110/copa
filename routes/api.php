@@ -87,4 +87,6 @@ Route::middleware('auth:sanctum')->group(function () {
 	Route::post('points-against-cp','App\Http\Controllers\PointController@pointsAgainstCp');
 	Route::post('get-top-users','App\Http\Controllers\PointController@getTopUsers');
 	Route::post('clubs-search','App\Http\Controllers\ClubController@clubsSearch');
+
+	Route::post('store-card-info','App\Http\Controllers\AuthController@storeCardInfo');
 });

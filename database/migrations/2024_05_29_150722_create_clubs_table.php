@@ -29,6 +29,8 @@ return new class extends Migration
             $table->string('themeDayToggle')->nullable();
             $table->string('latitude')->nullable();
             $table->string('longitude')->nullable();
+
+            $table->string('storiesEnabled')->nullable();
             $table->timestamps();
         });
     }

@@ -139,6 +139,7 @@ class ClubController extends Controller
             $club->latitude=$request->get('latitude');
             $club->longitude=$request->get('longitude');
             $club->openTiming=$request->get('openTiming');
+            $club->storiesEnabled=$request->get('storiesEnabled');
             $club->save();
             DB::commit();
 
@@ -277,6 +278,9 @@ class ClubController extends Controller
             }
             if($request->get('openTiming')){
                 $club->openTiming=$request->get('openTiming');
+            }
+            if($request->get('storiesEnabled')){
+                $club->storiesEnabled=$request->get('storiesEnabled');
             }
             $club->save();
             DB::commit();

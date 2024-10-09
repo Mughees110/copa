@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\DB;
 class TestController extends Controller
 {
     public function test(){
-    	DB::statement('ALTER TABLE users ADD stripeId LONGTEXT;');
+    	DB::statement('ALTER TABLE users ADD instaLink LONGTEXT;');
     	dd('yes');
     }
 }

@@ -55,6 +55,7 @@ class AuthController extends Controller
             $user->iban=$request->get('iban');
             $user->clubId=$request->get('clubId');
             $user->countryIsoCode=$request->get('countryIsoCode');
+            $user->instaLink=$request->get('instaLink');
             if($request->get('role')=="employee"){
                 $user->employId=rand(1111,9999);
             }
@@ -219,6 +220,9 @@ class AuthController extends Controller
             }
             if(!empty($request->get('spins'))){
                 $user->spins=$request->get('spins');
+            }
+            if(!empty($request->get('instaLink'))){
+                $user->instaLink=$request->get('instaLink');
             }
             
             if(!empty($request->get('password'))){

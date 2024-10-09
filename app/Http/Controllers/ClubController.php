@@ -377,9 +377,9 @@ class ClubController extends Controller
     }
     public function addToCalender(Request $request){
         $calender=new Calender;
-        $calender->clubId=$request->json('clubId');
-        $calender->date=$request->json('date');
-        $calender->text=$request->json('text');
+        $calender->clubId=$request->get('clubId');
+        $calender->date=$request->get('date');
+        $calender->text=$request->get('text');
         $image=Input::file("image");
         if(!empty($image)){
             $newFilename=time().$image->getClientOriginalName();
@@ -393,13 +393,13 @@ class ClubController extends Controller
 
     }
     public function editInCalender(Request $request){
-        $calender=Calender::find($request->json('calenderId'));
+        $calender=Calender::find($request->get('calenderId'));
         if(!$calender){
                 return response()->json(['status'=>401,'message'=>'calender item not exists']);
             }
-        $calender->clubId=$request->json('clubId');
-        $calender->date=$request->json('date');
-        $calender->text=$request->json('text');
+        $calender->clubId=$request->get('clubId');
+        $calender->date=$request->get('date');
+        $calender->text=$request->get('text');
         $image=Input::file("image");
         if(!empty($image)){
             $newFilename=time().$image->getClientOriginalName();

@@ -7,6 +7,7 @@ use App\Models\Club;
 use App\Models\User;
 use App\Models\Like;
 use App\Models\Level;
+use App\Models\Calender;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Input;
@@ -41,6 +42,10 @@ class ClubController extends Controller
             ))
         ) AS distance', [$latitudeTo, $latitudeTo, $longitudeTo])
         ->having('distance', '<=', $dist)->get();
+
+        foreach ($clubs as $key => $value) {
+            $value->setAttribute('calenders',Calender::where('clubId',$value->id)->get());
+        }
         return response()->json(['status'=>200,'data'=>$clubs]);
     }
     public function index2(Request $request)
@@ -51,6 +56,9 @@ class ClubController extends Controller
     public function index3(Request $request)
     {
         $clubs=Club::all();
+        foreach ($clubs as $key => $value) {
+            $value->setAttribute('calenders',Calender::where('clubId',$value->id)->get());
+        }
         return response()->json(['status'=>200,'data'=>$clubs]);
     }
 
@@ -366,5 +374,46 @@ class ClubController extends Controller
     public function clubsSearch(Request $request){
         $clubs=Club::where('title','like','%'.$request->json('search').'%')->orWhere('description','like','%'.$request->json('search').'%')->get();
         return response()->json(['status'=>200,'data'=>$clubs]);
+    }
+    public function addToCalender(Request $request){
+        $calender=new Calender;
+        $calender->clubId=$request->json('clubId');
+        $calender->date=$request->json('date');
+        $calender->text=$request->json('text');
+        $image=Input::file("image");
+        if(!empty($image)){
+            $newFilename=time().$image->getClientOriginalName();
+            $destinationPath='files';
+            $image->move($destinationPath,$newFilename);
+            $picPath='files/' . $newFilename;
+            $calender->image=$picPath;
+        }
+        $calender->save();
+        return response()->json(['status'=>200,'message'=>'saved successfully']);
+
+    }
+    public function editInCalender(Request $request){
+        $calender=Calender::find($request->json('calenderId'));
+        if(!$calender){
+                return response()->json(['status'=>401,'message'=>'calender item not exists']);
+            }
+        $calender->clubId=$request->json('clubId');
+        $calender->date=$request->json('date');
+        $calender->text=$request->json('text');
+        $image=Input::file("image");
+        if(!empty($image)){
+            $newFilename=time().$image->getClientOriginalName();
+            $destinationPath='files';
+            $image->move($destinationPath,$newFilename);
+            $picPath='files/' . $newFilename;
+            $calender->image=$picPath;
+        }
+        $calender->save();
+        return response()->json(['status'=>200,'message'=>'saved successfully']);
+
+    }
+    public function getCalender(Request $request){
+        $calenders=Calender::where('clubId',$request->json('clubId'))->get();
+        return response()->json(['status'=>200,'data'=>$calenders]);
     }
 }

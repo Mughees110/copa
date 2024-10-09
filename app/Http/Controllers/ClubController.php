@@ -416,4 +416,32 @@ class ClubController extends Controller
         $calenders=Calender::where('clubId',$request->json('clubId'))->get();
         return response()->json(['status'=>200,'data'=>$calenders]);
     }
+    public function uploadFile(){
+        $image=Input::file("file");
+        $path='';
+        if(!empty($image)){
+            $newFilename=time().$image->getClientOriginalName();
+            $destinationPath='files';
+            $image->move($destinationPath,$newFilename);
+            $path='files/' . $newFilename;
+        }
+        return response()->json(['status'=>true,'data'=>$path]);
+
+    }
+    public function uploadFiles(){
+        $files=Input::file("files");
+        $paths=array();
+        if(!empty($files)){
+            foreach ($files as $key => $video) {
+                if(!empty($video)){
+                    $newFilename=time().$video->getClientOriginalName();
+                    $destinationPath='files';
+                    $video->move($destinationPath,$newFilename);
+                    $picPath='files/' . $newFilename;
+                    $paths[$key]=$picPath;
+                }
+            }
+        }
+        return response()->json(['status'=>true,'data'=>$paths]);
+    }
 }

@@ -93,4 +93,7 @@ Route::middleware('auth:sanctum')->group(function () {
 	Route::post('add-to-calender','App\Http\Controllers\ClubController@addToCalender');
 	Route::post('edit-in-calender','App\Http\Controllers\ClubController@editInCalender');
 	Route::post('get-calender','App\Http\Controllers\ClubController@getCalender');
+
+	Route::post('upload-file','App\Http\Controllers\ClubController@uploadFile');
+	Route::post('upload-files','App\Http\Controllers\ClubController@uploadFiles');
 });

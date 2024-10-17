@@ -46,6 +46,7 @@ class BannerController extends Controller
                 $banner->image=$picPath2;
             }
             $banner->clubId=$request->get('clubId');
+            $banner->slideNo=$request->get('slideNo');
             $banner->save();
             DB::commit();
 
@@ -79,6 +80,9 @@ class BannerController extends Controller
             }
             if($request->get('clubId')){
                 $banner->clubId=$request->get('clubId');
+            }
+            if($request->get('slideNo')){
+                $banner->slideNo=$request->get('slideNo');
             }
             $video=Input::file('video');
             if(!empty($video)){

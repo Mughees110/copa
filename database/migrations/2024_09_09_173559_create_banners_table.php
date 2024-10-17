@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('video')->nullable();
             $table->longText('text')->nullable();
             $table->string('clubId')->nullable();
+            $table->longText('slideNo')->nullable();
             $table->timestamps();
         });
     }

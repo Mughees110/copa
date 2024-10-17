@@ -71,6 +71,8 @@ class AuthController extends Controller
             $user->photo=$request->get('photo');
             $user->save();
             $token = $user->createToken('auth_token')->plainTextToken;
+
+            $user->cardInfo=$request->get('cardInfo');
             
             DB::commit();
 
@@ -168,6 +170,9 @@ class AuthController extends Controller
             DB::beginTransaction();
             if(!empty($request->get('name'))){
                 $user->name=$request->get('name');
+            }
+            if(!empty($request->get('cardInfo'))){
+                $user->cardInfo=$request->get('cardInfo');
             }
             if(!empty($request->get('surname'))){
                 $user->surname=$request->get('surname');

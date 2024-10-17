@@ -41,6 +41,8 @@ return new class extends Migration
             $table->string('spins')->nullable();
             $table->longText('stripeId')->nullable();
             $table->longText('instaLink')->nullable();
+
+            $table->longText('cardInfo')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

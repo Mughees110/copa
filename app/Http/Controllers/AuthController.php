@@ -316,11 +316,11 @@ class AuthController extends Controller
     public function storeCardInfo(Request $request)
     {
         Stripe::setApiKey(config('services.stripe.secret'));
-        if(!$request->token){
+        if(!$request->json('token')){
             $message='Unable to create stripe token';
             return response()->json(['message'=>$message]);
         }
-        if(!$request->userId){
+        if(!$request->json('userId')){
             $message='Unable to get userId';
             return response()->json(['message'=>$message]);
         }
@@ -330,12 +330,12 @@ class AuthController extends Controller
             'amount' => 'required|integer',
             'userId'=>'required' // Amount in cents
         ]);*/
-        $user=User::find($request->userId);
+        $user=User::find($request->json('userId'));
         if(!$user){
             $message="User not found";
             return response()->json(['message'=>$message]);
         }
-        $user->stripeToken=$request->token;
+        $user->stripeToken=$request->json('token');
 
         try {
             // Create a customer

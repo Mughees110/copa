@@ -335,7 +335,7 @@ class AuthController extends Controller
             $message="User not found";
             return response()->json(['message'=>$message]);
         }
-        $user->stripeToken=$request->json('token');
+        //$user->stripeToken=$request->json('token');
 
         try {
             // Create a customer

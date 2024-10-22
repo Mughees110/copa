@@ -89,6 +89,7 @@ Route::middleware('auth:sanctum')->group(function () {
 	Route::post('clubs-search','App\Http\Controllers\ClubController@clubsSearch');
 
 	Route::post('store-card-info','App\Http\Controllers\AuthController@storeCardInfo');
+	Route::post('charge-customer','App\Http\Controllers\AuthController@chargeCustomer');
 
 	Route::post('add-to-calender','App\Http\Controllers\ClubController@addToCalender');
 	Route::post('edit-in-calender','App\Http\Controllers\ClubController@editInCalender');

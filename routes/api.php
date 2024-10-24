@@ -97,4 +97,9 @@ Route::middleware('auth:sanctum')->group(function () {
 
 	Route::post('upload-file','App\Http\Controllers\ClubController@uploadFile');
 	Route::post('upload-files','App\Http\Controllers\ClubController@uploadFiles');
+
+	Route::post('add-to-cart','App\Http\Controllers\CartController@addToCart');
+	Route::post('get-my-cart','App\Http\Controllers\CartController@getMyCart');
+	Route::post('edit-cart','App\Http\Controllers\CartController@editCart');
+	Route::post('delete-cart','App\Http\Controllers\CartController@deleteCart');
 });
